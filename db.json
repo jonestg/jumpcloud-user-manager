@@ -1,6 +1,6 @@
 {
-  "systemusers": [{
-    "id": 4,
-    "name": "Artemis"
-  }]
+  "systemusers": [
+    {"id": 4,"name": "Artemis"},
+    {"id": 1,"name": "Foo"}
+  ]
 }
