@@ -11,7 +11,10 @@ export default {
     const res = await axios.get(`url/${userId}`)
     return res.data
   },
-  createUser: async (user) => user,
+  createUser: async (user) => {
+    await axios.post(url, user)
+    return
+  },
   updateUser: async (user) => user,
   deleteUser: async (userId) => userId,
 }

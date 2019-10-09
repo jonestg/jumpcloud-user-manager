@@ -31,15 +31,12 @@ export function createStore() {
         state.users = [...users]
       },
       [CREATE_USER_START] (state) {
-        console.log(CREATE_USER_START)
         state.createUserLoading = true
       },
       [CREATE_USER_SUCCESS] (state) {
-        console.log(CREATE_USER_SUCCESS)
         state.createUserLoading = false
       },
       [CREATE_USER_ERROR] (state) {
-        console.log(CREATE_USER_ERROR)
         state.createUserLoading = false
         state.createUserError = true
       }
@@ -52,7 +49,6 @@ export function createStore() {
           .catch( () => commit(GET_USERS_ERROR))
       },
       createUser ({ commit }, { user }) {
-        console.log('createUser: ', user)
         commit(CREATE_USER_START)
         SystemUserService.createUser(user)
           .then( () => commit(CREATE_USER_SUCCESS) )
