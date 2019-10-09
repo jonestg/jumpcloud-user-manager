@@ -1,6 +1,6 @@
 {
   "systemusers": [
-    {"id": 4,"name": "Artemis"},
+    {"id": 4, "firstName": "Artemis", "lastName": "Jones", "email": "artemis@gmail.com", "role": "User", "group": "IT"},
     {"id": 1,"name": "Foo"}
   ]
 }

@@ -1,23 +1,23 @@
 <template>
-  <div class="hello">
-    <h1>Home Page</h1>
-    <div>
-      <h3>Users</h3>
-      <UserList />
-    </div>
-  </div>
+  <v-container>
+    <v-layout
+      text-center
+    >
+      <UserListCard />
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import UserList from './UserList.vue'
+import UserListCard from '../components/UserListCard'
 
 export default {
-  name: 'HomePage',
+  name: 'UserManagementPage',
   props: {
     header: String
   },
   components: {
-    UserList
+    UserListCard
   }
 }
 </script>
@@ -37,5 +37,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.content {
+  margin: 20px
 }
 </style>
