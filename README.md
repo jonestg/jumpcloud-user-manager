@@ -11,16 +11,19 @@
 * Material will match JumpCloud's look and feel
 * This app will be loaded behind behind a log-in
 * The server will implicitly know the logged user and only allow access to the appropriate users
-* I don't to actually implement or match the api exactly (I'll use an out of the box REST server)
+* The System User manager will be one page that is a part of a bigger app
+* I don't need to actually implement or match the api exactly (I'll use an out of the box REST server)
 * It's more important to show testing principles than to actually test everything (for the sake of time)
-* The intended structure of the User model
 
 ## Technical Choices
 ### UI Framework
 Vue.js
 
 ### Component Library
-__Vue Material__ - Seems to have the components I need as well as a large user-base
+~~__Vue Material__ - Seems to have the components I need as well as a large user-base~~
+The bulk of Vue Materials components are in beta and a little buggy
+
+__Vuetify__ - Has a large user base good documentation and lots of examples
 
 ### Testing
 __Unit tests__: Jest
@@ -39,24 +42,16 @@ Just a list of users.
 ## Project setup
 ```
 npm install
+npm start
 ```
-
-### Starts the backend
-```
-npm run start-backend
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Then open the app at http://localhost:8080
 
 ### Compiles and minifies for production
 ```
 npm run build
 ```
 
-### Run your tests
+### Run all tests
 ```
 npm run test
 ```
