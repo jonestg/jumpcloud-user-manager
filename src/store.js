@@ -69,19 +69,19 @@ export function createStore() {
     actions: {
       getUsers ({ commit }) {
         commit(GET_USERS_START)
-        SystemUserService.getUsers()
+        return SystemUserService.getUsers()
           .then( users => commit(GET_USERS_SUCCESS, { users }))
           .catch( () => commit(GET_USERS_ERROR))
       },
       getUser ({ commit }, { id } ) {
         commit(GET_USERS_START)
-        SystemUserService.getUser(id)
+        return SystemUserService.getUser(id)
           .then( (user) => commit(GET_USER_SUCCESS, { user }))
           .catch()
       },
       createUser ({ commit }, { user }) {
         commit(CREATE_USER_START)
-        SystemUserService.createUser(user)
+        return SystemUserService.createUser(user)
           .then( () => commit(CREATE_USER_SUCCESS) )
           .catch( () => commit(CREATE_USER_ERROR))
       }

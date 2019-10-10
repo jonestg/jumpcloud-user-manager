@@ -1,8 +1,5 @@
 <template>
-<v-dialog v-model="dialog" max-width="500px">
-  <template v-slot:activator="{ on }">
-    <v-btn color="primary" dark class="mb-2" v-on="on">Create User</v-btn>
-  </template>
+<v-dialog v-model="open" persistent max-width="500px">
   <v-card>
     <v-card-title>
       <span class="headline">{{ formTitle }}</span>
@@ -26,61 +23,71 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import SystemUser from '../../models/SystemUser'
-
-const fields = Object.keys(SystemUser)
-  .filter(key => !SystemUser[key].static)
-  .map(key => ({
-    key,
-    label: SystemUser[key].name
-  }))
-
-const defaultUser = {}
-Object.keys(SystemUser)
-  .forEach(key => defaultUser[key] = SystemUser[key].default)
 
 export default {
   name: 'AddUserDialog',
-  data: () => ({
-    dialog: false,
-    editedID: null,
-    value: {
-      ...defaultUser
-    },
-    defaultValue: {
-      ...defaultUser
-    },
-    fields
-  }),
-  watch: {
-    dialog (val) {
-      val || this.close()
-    },
+  data: () => {
+    const fields = Object.keys(SystemUser)
+      .filter(key => !SystemUser[key].static)
+      .map(key => ({
+        key,
+        label: SystemUser[key].name
+      }))
+
+    const defaultUser = {}
+    Object.keys(SystemUser)
+      .forEach(key => defaultUser[key] = SystemUser[key].default)
+
+    return ({
+      value: {
+        ...defaultUser
+      },
+      fields
+    })
   },
   computed: {
     formTitle () {
-      return this.editedID == null ? 'Create User' : 'Edit User'
+      return this.userId == null ? 'Create User' : 'Edit User'
     },
+    currentUser: function () {
+      if(this.userId != null) {
+        return this.getUserById(this.userId)
+      }
+      return null
+    },
+    userLoaded: function () {
+      return true
+    }
   },
+  props: {
+    open: Boolean,
+    userId: Number
+  },
+  watch: {
+    currentUser: function (val, oldVal) {
+      if(oldVal == undefined) {
+        this.value = {...val}
+      }
+    }
+  },
+  mounted () { this.userId != null && this.getUser(this.userId) },
   methods: {
     close () {
-      this.resetState()
-      this.dialog = false
-    },
-    resetState () {
-      this.value = Object.assign({}, this.defaultValue)
-      this.editedID = null
+      this.$emit('close')
     },
     async save () {
       //TODO disable save button
+      // Using an await here is arguably not an ideal pattern (vs using the loading value in vuex)
       await this.createUser({user: {...this.value}})
       //TODO add error check (Alert and don't close)
       //TODO reenable save button
-      this.close()
+      this.$emit('save')
       return
     },
-    ...mapActions(['createUser'])
+    ...mapActions(['createUser', 'getUser']),
+    ...mapGetters(['getUserById'])
   }
 }
 </script>
