@@ -3,13 +3,6 @@
   <v-card-title>
     System Users
     <div class="flex-grow-1"></div>
-    <AddEditUserDialog
-      :key="selectedUserId"
-      :userId="selectedUserId"
-      :open="dialogOpen"
-      @close="handleDialogClose"
-      @save="handleDialogSave"
-    />
   </v-card-title>
   <v-btn
     color="blue darken-1"
@@ -23,6 +16,19 @@
     @edit="openEditUserDialog"
     @delete="handleDelete"
   />
+  <AddEditUserDialog
+    :key="selectedUserId"
+    :userId="selectedUserId"
+    :open="editDialogOpen"
+    @close="handleEditDialogClose"
+    @save="handleEditDialogSave"
+  />
+  <DeleteUserDialog
+    :userId="selectedUserId"
+    :open="deleteDialogOpen"
+    @close="handleDeleteDialogClose"
+    @delete="handleDeleteDialogConfirm"
+  />
 </v-card>
 </template>
 
@@ -30,11 +36,14 @@
 import { mapActions } from 'vuex'
 import UserList from './UserList' 
 import AddEditUserDialog from './AddEditUserDialog'
+import DeleteUserDialog from './DeleteUserDialog'
+
 export default {
   name: 'UserListCard',
   data: () => ({
     selectedUserId: null,
-    dialogOpen: false,
+    editDialogOpen: false,
+    deleteDialogOpen: false,
     userListKey: 0
   }),
   methods: {
@@ -43,28 +52,38 @@ export default {
     },
     openCreateUserDialog () {
       this.selectedUserId = null
-      this.dialogOpen = true
+      this.editDialogOpen = true
     },
     openEditUserDialog (userId) {
       this.selectedUserId = userId
-      this.dialogOpen = true
+      this.editDialogOpen = true
     },
     handleDelete (userId) {
-      console.log('delete')
+      this.selectedUserId = userId
+      this.deleteDialogOpen = true
     },
-    handleDialogClose () {
-      this.dialogOpen = false
+    handleEditDialogClose () {
+      this.editDialogOpen = false
     },
-    handleDialogSave () {
+    handleEditDialogSave () {
       // Trigger re-render of the User List
       this.refreshUserList()
-      this.dialogOpen = false
+      this.editDialogOpen = false
+    },
+    handleDeleteDialogClose () {
+      this.deleteDialogOpen = false
+    },
+    handleDeleteDialogConfirm () {
+      // Trigger re-render of the User List
+      this.refreshUserList()
+      this.deleteDialogOpen = false
     },
     ...mapActions(['getUsers'])
   },
   components: {
     UserList,
-    AddEditUserDialog
+    AddEditUserDialog,
+    DeleteUserDialog
   }
 }
 </script>
