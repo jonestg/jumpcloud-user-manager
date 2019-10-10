@@ -23,9 +23,8 @@
   * Add indexing to the single user access
 * More thorough error handling
   * A central place to put messaging (so we don't have a bunch of one-off messages)
-* A lot more testing
-  * Because of the limited time I have available I mostly just have examples of tests
-  * In a "real" implementation I would insist on covering everything. When an implementation is going to be worked on for more than a few weeks (or with more than a few people) having good coverage saves more time than it costs.
+* Testing
+  * This is my first Vue project and I had trouble getting unit tests to work
 * Form validation
   * While I think the server should be the final check as to whether or not the model is valid, ideally I would also provide quicker feedback in form(before submission).
 * Server-side Paging
@@ -43,14 +42,10 @@ The bulk of Vue Materials components are in beta and a little buggy
 
 __Vuetify__ - Has a large user base good documentation and lots of examples
 
-### Testing
-__Unit tests__: Jest
-__Component tests__: Jest w/ built in component constructor
-__UI tests__: Puppeteer
-
 ### Server
 __json-server__: Requires very little setup. Though it doesn't match the api exactly
 
+https://github.com/typicode/json-server
 
 ###Design considerations
 I don't have visibility into JumpCloud's UI so I'm going to go with a Material look and feel.
@@ -67,11 +62,6 @@ Then open the app at http://localhost:8080
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run all tests
-```
-npm run test
 ```
 
 ### Lints and fixes files
