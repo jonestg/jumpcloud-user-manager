@@ -3,14 +3,14 @@
   <v-card-title>
     System Users
     <div class="flex-grow-1"></div>
+    <v-btn
+      small
+      color="primary"
+      @click.stop="openCreateUserDialog"
+    >
+      Create User
+    </v-btn>
   </v-card-title>
-  <v-btn
-    color="blue darken-1"
-    text
-    @click.stop="openCreateUserDialog"
-  >
-    Create User
-  </v-btn>
   <UserList
     :key="userListKey"
     @edit="openEditUserDialog"
