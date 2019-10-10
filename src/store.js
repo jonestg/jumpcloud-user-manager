@@ -10,6 +10,12 @@ const GET_USER_ERROR = 'GET_USER_ERROR'
 const CREATE_USER_START = 'CREATE_USER_START'
 const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS'
 const CREATE_USER_ERROR = 'CREATE_USER_ERROR'
+const UPDATE_USER_START = 'UPDATE_USER_START'
+const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS'
+const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR'
+const DELETE_USER_START = 'DELETE_USER_START'
+const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
+const DELETE_USER_ERROR = 'DELETE_USER_ERROR'
 
 export function createStore() {
   return new Vuex.Store({
@@ -22,9 +28,10 @@ export function createStore() {
       userError: false,
       createUserLoading: false,
       createUserError: false,
-    },
-    getters: {
-      getUserById: (state) => (id) => state.user[id]
+      updateUserLoading: false,
+      updateUserError: false,
+      deleteUserLoading: false,
+      deleteUserError: false
     },
     mutations: {
       [GET_USERS_START] (state) {
@@ -64,7 +71,31 @@ export function createStore() {
       [CREATE_USER_ERROR] (state) {
         state.createUserLoading = false
         state.createUserError = true
-      }
+      },
+      [UPDATE_USER_START] (state) {
+        state.updateUserLoading = true
+        state.updateUserError = false
+      },
+      [UPDATE_USER_SUCCESS] (state) {
+        state.updateUserLoading = false
+        state.updateUserError = false
+      },
+      [UPDATE_USER_ERROR] (state) {
+        state.updateUserLoading = false
+        state.updateUserError = true
+      },
+      [DELETE_USER_START] (state) {
+        state.deleteUserLoading = true
+        state.deleteUserError = false
+      },
+      [DELETE_USER_SUCCESS] (state) {
+        state.deleteUserLoading = false
+        state.deleteUserError = false
+      },
+      [DELETE_USER_ERROR] (state) {
+        state.deleteUserLoading = false
+        state.deleteUserError = true
+      },
     },
     actions: {
       getUsers ({ commit }) {
@@ -77,13 +108,25 @@ export function createStore() {
         commit(GET_USERS_START)
         return SystemUserService.getUser(id)
           .then( (user) => commit(GET_USER_SUCCESS, { user }))
-          .catch()
+          .catch( () => commit(GET_USER_ERROR))
       },
       createUser ({ commit }, { user }) {
         commit(CREATE_USER_START)
         return SystemUserService.createUser(user)
           .then( () => commit(CREATE_USER_SUCCESS) )
           .catch( () => commit(CREATE_USER_ERROR))
+      },
+      updateUser ({ commit }, { user }) {
+        commit(UPDATE_USER_START)
+        return SystemUserService.updateUser(user)
+          .then( () => commit(UPDATE_USER_SUCCESS) )
+          .catch( () => commit(UPDATE_USER_ERROR))
+      },
+      deleteUser ({ commit }, { id }) {
+        commit(DELETE_USER_START)
+        return SystemUserService.deleteUser(id)
+          .then( () => commit(DELETE_USER_SUCCESS) )
+          .catch( () => commit(DELETE_USER_ERROR))
       }
     },
   })

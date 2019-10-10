@@ -3,7 +3,7 @@
   <v-card-title>
     System Users
     <div class="flex-grow-1"></div>
-    <AddUserDialog
+    <AddEditUserDialog
       :key="selectedUserId"
       :userId="selectedUserId"
       :open="dialogOpen"
@@ -20,6 +20,8 @@
   </v-btn>
   <UserList
     :key="userListKey"
+    @edit="openEditUserDialog"
+    @delete="handleDelete"
   />
 </v-card>
 </template>
@@ -27,7 +29,7 @@
 <script>
 import { mapActions } from 'vuex'
 import UserList from './UserList' 
-import AddUserDialog from './AddUserDialog'
+import AddEditUserDialog from './AddEditUserDialog'
 export default {
   name: 'UserListCard',
   data: () => ({
@@ -47,7 +49,8 @@ export default {
       this.selectedUserId = userId
       this.dialogOpen = true
     },
-    handleEdit () {
+    handleDelete (userId) {
+      console.log('delete')
     },
     handleDialogClose () {
       this.dialogOpen = false
@@ -61,7 +64,7 @@ export default {
   },
   components: {
     UserList,
-    AddUserDialog
+    AddEditUserDialog
   }
 }
 </script>

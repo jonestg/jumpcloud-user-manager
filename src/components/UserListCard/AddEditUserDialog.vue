@@ -27,7 +27,7 @@ import { mapActions, mapGetters } from 'vuex'
 import SystemUser from '../../models/SystemUser'
 
 export default {
-  name: 'AddUserDialog',
+  name: 'AddEditUserDialog',
   data: () => {
     const fields = Object.keys(SystemUser)
       .filter(key => !SystemUser[key].static)
@@ -53,13 +53,13 @@ export default {
     },
     currentUser: function () {
       if(this.userId != null) {
-        return this.getUserById(this.userId)
+        return this.$store.state.user[this.userId]
       }
       return null
     },
     userLoaded: function () {
       return true
-    }
+    },
   },
   props: {
     open: Boolean,
@@ -72,7 +72,7 @@ export default {
       }
     }
   },
-  mounted () { this.userId != null && this.getUser(this.userId) },
+  mounted () { this.userId != null && this.getUser({id: this.userId}) },
   methods: {
     close () {
       this.$emit('close')
@@ -80,14 +80,17 @@ export default {
     async save () {
       //TODO disable save button
       // Using an await here is arguably not an ideal pattern (vs using the loading value in vuex)
-      await this.createUser({user: {...this.value}})
+      if(this.value.id != null) {
+        await this.updateUser({user: {...this.value}})
+      } else {
+        await this.createUser({user: {...this.value}})
+      }
       //TODO add error check (Alert and don't close)
       //TODO reenable save button
       this.$emit('save')
       return
     },
-    ...mapActions(['createUser', 'getUser']),
-    ...mapGetters(['getUserById'])
+    ...mapActions(['createUser', 'updateUser', 'getUser']),
   }
 }
 </script>
