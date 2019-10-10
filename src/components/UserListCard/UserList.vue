@@ -3,7 +3,10 @@
     <v-data-table
       :headers="headers"
       :items="users"
-      :items-per-page="50"
+      items-per-page=15
+      :loading="usersLoading"
+      sort-by="id"
+      no-data-text="No Saved Users"
     >
       <template v-slot:item.action="{ item }">
         <v-icon
@@ -30,7 +33,7 @@ import SystemUser from '../../models/SystemUser'
 
 export default {
   name: 'UserList',
-  computed: mapState(['users']),
+  computed: mapState(['users', 'usersLoading']),
   methods: {
     handleEdit (user) {
       this.$emit('edit', user.id)

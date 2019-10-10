@@ -16,7 +16,7 @@
     <v-card-actions>
       <div class="flex-grow-1"></div>
       <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-      <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+      <v-btn color="blue darken-1" :disabled="saving" text @click="save">Save</v-btn>
     </v-card-actions>
   </v-card>
 </v-dialog>
@@ -44,6 +44,7 @@ export default {
       value: {
         ...defaultUser
       },
+      saving: false,
       fields
     })
   },
@@ -78,15 +79,13 @@ export default {
       this.$emit('close')
     },
     async save () {
-      //TODO disable save button
-      // Using an await here is arguably not an ideal pattern (vs using the loading value in vuex)
+      this.saving = true
       if(this.value.id != null) {
         await this.updateUser({user: {...this.value}})
       } else {
         await this.createUser({user: {...this.value}})
       }
-      //TODO add error check (Alert and don't close)
-      //TODO reenable save button
+      this.saving = false
       this.$emit('save')
       return
     },

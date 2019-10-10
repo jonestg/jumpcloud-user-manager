@@ -1,5 +1,5 @@
 <template>
-  <v-container class="content d-flex flex-column justify-start">
+  <v-container class="content d-flex flex-column">
     <UserListCard />
   </v-container>
 </template>
@@ -23,5 +23,6 @@ export default {
 .content {
   margin: 20px;
   height: 100%;
+  width: 100%;
 }
 </style>
