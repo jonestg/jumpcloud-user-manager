@@ -45,7 +45,10 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "comma-dangle": ["warn", "always-multiline" ],
+      "semi": ["warn", "never"]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

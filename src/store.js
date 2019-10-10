@@ -31,7 +31,7 @@ export function createStore() {
       updateUserLoading: false,
       updateUserError: false,
       deleteUserLoading: false,
-      deleteUserError: false
+      deleteUserError: false,
     },
     mutations: {
       [GET_USERS_START] (state) {
@@ -54,7 +54,7 @@ export function createStore() {
         // Store the user on an index to help prevent errors around stale data and race conditions
         state.user = {
           ...state.user,
-          [user.id]: { ...user }
+          [user.id]: { ...user },
         }
       },
       [GET_USER_ERROR] (state, { users }) {
@@ -127,7 +127,7 @@ export function createStore() {
         return SystemUserService.deleteUser(id)
           .then( () => commit(DELETE_USER_SUCCESS) )
           .catch( () => commit(DELETE_USER_ERROR))
-      }
+      },
     },
   })
 }
