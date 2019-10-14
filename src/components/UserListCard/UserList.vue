@@ -11,13 +11,14 @@
       <template v-slot:item.action="{ item }">
         <v-icon
           small
-          class="mr-2"
+          class="mr-2 edit-button"
           @click="handleEdit(item)"
         >
           edit
         </v-icon>
         <v-icon
           small
+          class="delete-button"
           @click="handleDelete(item)"
         >
           delete
