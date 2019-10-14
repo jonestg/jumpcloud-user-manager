@@ -59,10 +59,9 @@ export default new Vuex.Store({
         [user.id]: { ...user },
       }
     },
-    [GET_USER_ERROR] (state, { users }) {
-      state.usersLoading = false
-      state.usersError = true
-      state.users = [...users]
+    [GET_USER_ERROR] (state) {
+      state.userLoading = false
+      state.userError = true
     },
     [CREATE_USER_START] (state) {
       state.createUserLoading = true
@@ -130,5 +129,5 @@ export default new Vuex.Store({
         .then( () => commit(DELETE_USER_SUCCESS) )
         .catch( () => commit(DELETE_USER_ERROR))
     },
-  }
+  },
 })

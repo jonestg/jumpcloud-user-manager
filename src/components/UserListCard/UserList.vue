@@ -3,7 +3,7 @@
     <v-data-table
       :headers="headers"
       :items="users"
-      items-per-page=15
+      :items-per-page=15
       :loading="usersLoading"
       sort-by="id"
       no-data-text="No Saved Users"
@@ -29,7 +29,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import SystemUser from '../../models/SystemUser'
+import SystemUser from '@/models/SystemUser'
 
 export default {
   name: 'UserList',
