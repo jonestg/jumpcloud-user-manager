@@ -42,23 +42,23 @@ export default {
     handleDelete (user) {
       this.$emit('delete', user.id)
     },
-    ...mapActions(['getUsers'])
+    ...mapActions(['getUsers']),
   },
   mounted () { this.getUsers() },
   data() {
     const valueHeaders = Object.keys(SystemUser)
       .map(key => ({
         text: SystemUser[key].name,
-        value: key
+        value: key,
       }))
     const headers = [
       ...valueHeaders,
-      { text: 'Actions', value: 'action', sortable: false }
+      { text: 'Actions', value: 'action', sortable: false },
     ]
     return {
-      headers
+      headers,
     }
-  }
+  },
 }
 </script>
 
