@@ -5,13 +5,15 @@
   "scripts": {
     "start": "npm-run-all -p start:backend start:frontend",
     "start:backend": "json-server --watch --no-cors db.json",
-    "start:frontend": "wait-on http://localhost:3000 && npm run serve",
+    "start:frontend": "npm-run-all wait:backend serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "npm-run-all test:unit test:e2e",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:e2e": "npm-run-all -p -r start:backend test:e2e:tests",
+    "test:e2e:tests": "npm run wait:backend && vue-cli-service test:e2e",
+    "test:unit": "vue-cli-service test:unit",
+    "wait:backend": "wait-on http://localhost:3000"
   },
   "dependencies": {
     "axios": "^0.19.0",
