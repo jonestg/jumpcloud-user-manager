@@ -24,7 +24,9 @@
 * More thorough error handling
   * A central place to put messaging (so we don't have a bunch of one-off messages)
 * Testing
-  * This is my first Vue project and I had trouble getting unit tests to work
+  * I just included an example of how I would test the UserList component.
+  * Generally I would at least have a simplistic render test for every component.
+  * I usually also favor testing logic with UI tests and a fake backend (like the json-server I included)
 * Form validation
   * While I think the server should be the final check as to whether or not the model is valid, ideally I would also provide quicker feedback in form(before submission).
 * Server-side Paging
